@@ -9,3 +9,4 @@
 | tip_03_pairs.png | 配对法 |
 | tip_04_common.png | 公共格 |
 | tip_05_bow.png | 弓箭型 |
+| tip_06_third.png | 补第三格 |

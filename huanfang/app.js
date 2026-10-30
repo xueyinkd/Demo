@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793333346968" : String(Date.now());
+  var BUILD = true ? "1793333562815" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -1525,6 +1525,12 @@
       title: "\u5F13\u7BAD",
       body: "\u89D2\u4E0A\u7684\u6570 \xD7 2 = \u5BF9\u7740\u5B83\u7684\u4E24\u4E2A\u8FB9\u4E2D\u683C\u4E4B\u548C\uFF082a=b+c\uFF09\u3002",
       motto: "\u53E3\u8BC0\uFF1A\u89D2\u7FFB\u4E00\u500D\uFF0C\u7B49\u4E8E\u4E24\u8FB9\u4E2D\u3002"
+    },
+    {
+      file: "tip_06_third.png",
+      title: "\u8865\u7B2C\u4E09\u683C",
+      body: "\u4E00\u6761\u7EBF\u4E0A\u5DF2\u77E5\u4E24\u683C\uFF1A\u7B2C\u4E09\u683C = \u7EBF\u548C \u2212 \u8FD9\u4E24\u4E2A\u6570\u3002\u7EBF\u548C\u5148\u7528\u7B2C \u2461 \u62DB\u7B97\u51FA\u6765\u3002",
+      motto: "\u53E3\u8BC0\uFF1A\u7EBF\u548C\u51CF\u4E24\u6570\uFF0C\u5269\u4E0B\u5C31\u662F\u5B83\u3002"
     }
   ];
   function tipIllustSlot(file, title) {
