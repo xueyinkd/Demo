@@ -692,6 +692,7 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
   line-height: 1.6;
   word-break: break-all;
 }
+/* B4: 动态通关分享卡（盘面数字 = 本题 board，QR 右下） */
 .share-card-wrap {
   position: relative;
   margin: 16px auto 0;
@@ -699,47 +700,106 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
   border-radius: var(--radius-btn);
   overflow: hidden;
   box-shadow: var(--shadow);
+  background: linear-gradient(165deg, #E8EEFC 0%, #FFFFFF 42%, #FFF8EB 100%);
+  border: 1px solid var(--border);
 }
-.share-card-wrap img.share-card-bg {
-  display: block;
+.share-card-wrap.share-card-dynamic {
+  aspect-ratio: 5 / 4;
+}
+.share-card-inner {
+  position: relative;
   width: 100%;
-  height: auto;
+  height: 100%;
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 256px;
+}
+.share-card-brand {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
 }
 .share-card-wrap .share-overlay-title {
-  position: absolute;
-  left: 5%;
-  top: 17.5%;
-  right: 38%;
-  font-size: 13px;
-  font-weight: 600;
-  color: #5c6570;
+  align-self: stretch;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
   letter-spacing: 0.02em;
   text-align: left;
-  pointer-events: none;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.share-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  width: min(168px, 58%);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+.share-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  border: 1.5px solid var(--primary-soft);
+  background: var(--primary-mist);
+  color: var(--primary-deep);
+}
+.share-cell.given {
+  background: var(--given-bg);
+  color: var(--given-text);
+  border-color: var(--divider);
+}
+.share-cell.user {
+  background: var(--primary-mist);
+  color: var(--primary);
+  border-color: var(--primary-soft);
+}
+.share-cell.dig2 { font-size: 15px; }
+.share-cell.dig3 { font-size: 12px; }
 .share-card-wrap .share-overlay {
-  position: absolute;
-  left: 0; right: 0;
-  bottom: 18%;
+  margin-top: 10px;
   text-align: center;
   color: var(--text);
-  text-shadow: 0 1px 0 #fff;
-  pointer-events: none;
-  padding: 0 12px;
+  padding: 0 56px 0 8px; /* leave room for QR */
+  width: 100%;
+  box-sizing: border-box;
 }
 .share-card-wrap .share-overlay-sum {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--ok);
   margin-bottom: 2px;
 }
 .share-card-wrap .share-overlay-time {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
+  color: var(--amber);
+}
+.share-card-qr {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  object-fit: contain;
+  padding: 3px;
+  box-sizing: border-box;
 }
 .share-box .share-url {
   margin-top: 6px;

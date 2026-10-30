@@ -49,7 +49,7 @@
     share: "assets/ui/icons/icon_share.png",
     check: "assets/ui/icons/icon_check.png"
   };
-  var SHARE_CARD_IMG = "assets/ui/share/share_card.png";
+  var SHARE_QR_IMG = "assets/ui/share/qr_huanfang.png";
   var SHARE_URL = "https://xueyinkd.github.io/Demo/huanfang/";
 
   // src/magic.ts
@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793330969118" : String(Date.now());
+  var BUILD = true ? "1793332012427" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -681,7 +681,10 @@
       for (let i = 0; i < 9; i++) {
         if (state.givenMask[i]) state.board[i] = q.given[i];
       }
-      state.history = state.history.filter((h) => !state.givenMask[h.index]);
+      state.history = state.history.filter((h) => {
+        if (h.kind === "move") return !state.givenMask[h.from] && !state.givenMask[h.to];
+        return !state.givenMask[h.index];
+      });
     } else {
       state.board = cloneBoard(q.given);
       state.history = [];
@@ -850,13 +853,15 @@
         toast("\u8FD9\u4E2A\u6570\u5377\u9762\u4E0A\u5DF2\u6709");
         return false;
       }
-      const oldPrev = state.board[usedAt];
+      const fromPrev = state.board[usedAt];
       state.board[usedAt] = null;
-      state.history.push({ index: usedAt, prev: oldPrev, next: null });
+      state.board[i] = n;
+      state.history.push({ kind: "move", from: usedAt, to: i, fromPrev, toPrev: prev });
       toast("\u5DF2\u79FB\u5230\u8FD9\u4E00\u683C");
+    } else {
+      state.board[i] = n;
+      state.history.push({ kind: "cell", index: i, prev, next: n });
     }
-    state.board[i] = n;
-    state.history.push({ index: i, prev, next: n });
     state.hintMsg = null;
     state.hintCell = null;
     persistSession();
@@ -876,16 +881,23 @@
     const prev = state.board[i];
     if (prev == null) return;
     state.board[i] = null;
-    state.history.push({ index: i, prev, next: null });
+    state.history.push({ kind: "cell", index: i, prev, next: null });
     persistSession();
     render();
   }
   function undo() {
     while (state.history.length > 0) {
-      const move = state.history.pop();
-      if (state.givenMask[move.index]) continue;
-      state.board[move.index] = move.prev;
-      state.selected = move.index;
+      const entry = state.history.pop();
+      if (entry.kind === "move") {
+        if (state.givenMask[entry.from] || state.givenMask[entry.to]) continue;
+        state.board[entry.from] = entry.fromPrev;
+        state.board[entry.to] = entry.toPrev;
+        state.selected = entry.to;
+      } else {
+        if (state.givenMask[entry.index]) continue;
+        state.board[entry.index] = entry.prev;
+        state.selected = entry.index;
+      }
       state.hintMsg = null;
       state.hintCell = null;
       persistSession();
@@ -1363,12 +1375,25 @@
         <button class="btn btn-ghost btn-block" id="btn-home" type="button">\u56DE\u9996\u9875</button>
         <button class="btn btn-ghost btn-block" id="btn-copy" type="button">${icon("share")} \u590D\u5236\u5206\u4EAB\u6587\u6848</button>
       </div>
-      <div class="share-card-wrap">
-        <img class="share-card-bg" src="${SHARE_CARD_IMG}?v=${BUILD}" alt="\u5206\u4EAB\u5361" width="500" height="400" decoding="async" />
-        <div class="share-overlay-title">\u7B2C ${q ? parseOrder(q.id) : ""} \u9898 \xB7 \u901A\u5173\u5566</div>
-        <div class="share-overlay">
-          <div class="share-overlay-sum">8 \u7EBF\u5168\u90E8\u5BF9\u9F50 \xB7 \u548C=${magic}</div>
-          <div class="share-overlay-time">${timeStr}</div>
+      <div class="share-card-wrap share-card-dynamic" role="img" aria-label="\u901A\u5173\u5206\u4EAB\u5361">
+        <div class="share-card-inner">
+          <div class="share-card-brand">\u5E7B\u65B9 \xB7 \u7EC3\u4E60\u9898\u5E93</div>
+          <div class="share-overlay-title">\u7B2C ${q ? parseOrder(q.id) : ""} \u9898 \xB7 \u901A\u5173\u5566</div>
+          <div class="share-board" aria-hidden="true">
+            ${[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => {
+      const v = state.board[i];
+      const given = q ? state.givenMask[i] : false;
+      const cls = given ? "share-cell given" : "share-cell user";
+      const digits = v == null ? 1 : String(v).length;
+      const sizeCls = digits >= 3 ? " dig3" : digits === 2 ? " dig2" : "";
+      return `<div class="${cls}${sizeCls}">${v == null ? "" : v}</div>`;
+    }).join("")}
+          </div>
+          <div class="share-overlay">
+            <div class="share-overlay-sum">8 \u7EBF\u5168\u90E8\u5BF9\u9F50 \xB7 \u548C=${magic}</div>
+            <div class="share-overlay-time">${timeStr}</div>
+          </div>
+          <img class="share-card-qr" src="${SHARE_QR_IMG}?v=${BUILD}" alt="\u626B\u7801\u6E38\u73A9" width="72" height="72" decoding="async" />
         </div>
       </div>
       <div class="share-box">${escapeHtml(state.shareText)}
