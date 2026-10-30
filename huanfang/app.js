@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793333562815" : String(Date.now());
+  var BUILD = true ? "1793334296978" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -1529,7 +1529,7 @@
     {
       file: "tip_06_third.png",
       title: "\u8865\u7B2C\u4E09\u683C",
-      body: "\u4E00\u6761\u7EBF\u4E0A\u5DF2\u77E5\u4E24\u683C\uFF1A\u7B2C\u4E09\u683C = \u7EBF\u548C \u2212 \u8FD9\u4E24\u4E2A\u6570\u3002\u7EBF\u548C\u5148\u7528\u7B2C \u2461 \u62DB\u7B97\u51FA\u6765\u3002",
+      body: "\u5148\u6C42\u7EBF\u548C\uFF1A\u6709\u4E00\u6761\u7EBF\u586B\u6EE1\u4E86\u5C31\u628A\u4E09\u4E2A\u6570\u52A0\u8D77\u6765\uFF0C\u6216\u8005\u7528\u4E2D\u5FC3 \xD7 3\u3002\u518D\u770B\u4E00\u6761\u7EBF\u4E0A\u5DF2\u77E5\u4E24\u683C\uFF1A\u7B2C\u4E09\u683C = \u7EBF\u548C \u2212 \u8FD9\u4E24\u4E2A\u6570\u3002",
       motto: "\u53E3\u8BC0\uFF1A\u7EBF\u548C\u51CF\u4E24\u6570\uFF0C\u5269\u4E0B\u5C31\u662F\u5B83\u3002"
     }
   ];
