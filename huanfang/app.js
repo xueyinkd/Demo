@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793334296978" : String(Date.now());
+  var BUILD = true ? "1793336375424" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -1150,7 +1150,6 @@
     <header class="home-header">
       <div class="brand-ring">${icon("play", "ui-icon ui-icon-lg")}</div>
       <h1>${APP_NAME}</h1>
-      <p class="tagline">\u7EC3\u4E60\u9898\u5E93 \xB7 ${QUESTION_COUNT} \u9053\u4E09\u9636 \xB7 \u524D ${FREE_BANK} \u9898\u514D\u8D39</p>
       <div class="progress-pill">\u8FDB\u5EA6 <b>${doneCount}</b> / ${QUESTION_COUNT} \xB7 \u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</div>
     </header>
     <div class="home-actions">
@@ -1162,7 +1161,6 @@
       ${freeAllDone || unlockedThrough > FREE_BANK || canUnlockMore ? `<button class="btn btn-ghost btn-block btn-advanced" id="btn-advanced" type="button">${icon("levels")} \u8FDB\u9636\u9898${unlockedThrough >= QUESTION_COUNT ? " \xB7 \u5DF2\u5168\u5F00" : unlockedThrough > FREE_BANK ? ` \xB7 \u81F3 Q${unlockedThrough}` : " \xB7 \u770B\u89C6\u9891\u89E3\u9501"}</button>` : ""}
     </div>
     <div class="home-footer">
-      <p class="pledge">\u524D ${FREE_BANK} \u9898\u514D\u8D39 \xB7 \u968F\u4FBF\u8FDB \xB7 \u5171 ${QUESTION_COUNT} \u9053</p>
       <div class="home-footer-links">
         <button class="btn btn-ghost btn-sm" id="btn-rules" type="button">${icon("rules")} \u89C4\u5219</button>
         <button class="btn btn-ghost btn-sm" id="btn-tips" type="button">${icon("hint")} \u6280\u5DE7</button>
@@ -1231,8 +1229,8 @@
       <div class="title">${icon("levels", "ui-icon ui-icon-sm")} \u9898\u53F7\u5217\u8868</div>
       <div style="width:48px"></div>
     </div>
-    <p class="picker-hint">\u514D\u8D39\u533A Q1\u2013Q${FREE_BANK} \u5168\u5F00 \xB7 \u8FDB\u9636\u533A\u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</p>
-    <h3 class="picker-section">\u514D\u8D39\u533A</h3>
+    <p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</p>
+    <h3 class="picker-section">\u57FA\u7840\u9898</h3>
     <div class="picker-grid">${freeQs.map(cellHtml).join("")}</div>
     <h3 class="picker-section">\u8FDB\u9636\u533A <span class="picker-section-meta">${ADVANCED_COUNT} \u9898 \xB7 \u6BCF\u6B21\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</span></h3>
     <div class="picker-grid">${advQs.map(cellHtml).join("")}</div>
@@ -1377,7 +1375,7 @@
       </div>
       <div class="share-card-wrap share-card-dynamic" role="img" aria-label="\u901A\u5173\u5206\u4EAB\u5361">
         <div class="share-card-inner">
-          <div class="share-card-brand">\u5E7B\u65B9 \xB7 \u7EC3\u4E60\u9898\u5E93</div>
+          <div class="share-card-brand">\u5E7B\u65B9</div>
           <div class="share-overlay-title">\u7B2C ${q ? parseOrder(q.id) : ""} \u9898 \xB7 \u901A\u5173\u5566</div>
           <div class="share-board" aria-hidden="true">
             ${[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => {
@@ -1399,7 +1397,7 @@
       <div class="share-box">${escapeHtml(state.shareText)}
         <div class="share-url">${SHARE_URL}</div>
       </div>
-      ${isFreeDone && nextLocked ? '<p class="win-bank-done">\u514D\u8D39\u533A\u5237\u5B8C\u5566 \xB7 \u8FDB\u9636\u9898\u770B\u77ED\u89C6\u9891\u89E3\u9501 \u{1F389}</p>' : ""}
+      ${isFreeDone && nextLocked ? '<p class="win-bank-done">\u57FA\u7840\u9898\u5237\u5B8C\u5566 \xB7 \u8FDB\u9636\u9898\u770B\u77ED\u89C6\u9891\u89E3\u9501 \u{1F389}</p>' : ""}
       ${isBankDone ? '<p class="win-bank-done">\u5DF2\u5237\u5B8C\u5168\u90E8\u9898\u5E93 \u{1F389}</p>' : ""}
     </div>
   `;
@@ -1475,13 +1473,11 @@
       <section class="rules-block">
         <h3>\u9898\u5E93</h3>
         <ul>
-          <li>\u5171 <b>${QUESTION_COUNT}</b> \u9053\u4E09\u9636\u9898\uFF1B\u524D <b>${FREE_BANK}</b> \u9898\u514D\u8D39\u5168\u5F00</li>
           <li>\u8FDB\u9636\u533A\u6BCF\u6B21\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</li>
-          <li>\u514D\u8D39\u533A\u9898\u53F7\u968F\u4FBF\u8DF3\uFF1B\u8FDB\u9636\u672A\u89E3\u9501\u9898\u70B9\u8FDB\u53EF\u770B\u89C6\u9891\u89E3\u9501</li>
         </ul>
       </section>
 
-      <div class="note">\u524D ${FREE_BANK} \u9898\u968F\u4FBF\u8DF3\u3002\u60F3\u5B66\u62DB\u5F0F\u8BF7\u770B\u300C\u6280\u5DE7\u300D\u9875\u3002</div>
+      <div class="note">\u60F3\u5B66\u62DB\u5F0F\u8BF7\u770B\u300C\u6280\u5DE7\u300D\u9875\u3002</div>
       <div class="rules-footer-actions">
         <button class="btn btn-ghost btn-block" id="btn-to-tips" type="button">${icon("hint")} \u4E09\u9636\u5DE7\u586B\u6280\u5DE7</button>
         <button class="btn btn-primary btn-block" id="btn-play" type="button">${icon("play")} \u5F00\u59CB\u7EC3\u4E60</button>
