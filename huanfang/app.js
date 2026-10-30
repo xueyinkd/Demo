@@ -1,6 +1,7 @@
 "use strict";
 (() => {
   // src/config.ts
+  var ADS_ENABLED = false;
   var MONETIZATION = {
     enabled: true,
     coverAd: false,
@@ -402,6 +403,7 @@
     return loadProgress().unlockedThrough;
   }
   function isQuestionNumUnlocked(num) {
+    if (!ADS_ENABLED) return true;
     return num <= getUnlockedThrough();
   }
   function isQuestionIdUnlocked(id) {
@@ -602,7 +604,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793336375424" : String(Date.now());
+  var BUILD = true ? "1793336613271" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -716,7 +718,7 @@
       }
     }
     const done = new Set(progress.completedIds);
-    const through = progress.unlockedThrough;
+    const through = effThrough(progress.unlockedThrough);
     const next = QUESTIONS.find((x) => !done.has(x.id) && parseOrder(x.id) <= through);
     return { q: next != null ? next : QUESTIONS[0] };
   }
@@ -957,6 +959,10 @@
       applyHint(`\uFF08\u4ECA\u65E5\u514D\u8D39\u5269\u4F59 ${r.remain} \u6B21\uFF09`);
       return;
     }
+    if (!ADS_ENABLED) {
+      toast("\u4ECA\u65E5\u63D0\u793A\u5DF2\u7528\u5B8C\uFF0C\u660E\u5929\u518D\u6765");
+      return;
+    }
     if (MONETIZATION.rewardAfterQuota && ADS.fakeRewardEnabled) {
       openFakeRewardAd({
         copy: {
@@ -1086,6 +1092,10 @@
     return `\u70B9\u7A7A\u683C\u540E\u81EA\u884C\u8F93\u5165\u6570\u5B57\uFF0C\u8BA9\u6BCF\u4E00\u884C\u3001\u6BCF\u4E00\u5217\u3001\u4E24\u6761\u5BF9\u89D2\u7EBF\u7684\u548C\u90FD\u4E00\u6837\u3002\u63D0\u793A\u4F1A\u70B9\u540D\u62DB\u5F0F\u3001\u53EA\u63A8\u4E00\u6B65\uFF0C\u4E0D\u7ED9\u5019\u9009\u6570\u6E05\u5355\u3002`;
   }
   function offerAdvancedUnlock(targetId) {
+    if (!ADS_ENABLED) {
+      if (targetId) beginQuestion(getQuestion(targetId));
+      return;
+    }
     if (!ADS.fakeRewardEnabled) {
       toast("\u8FDB\u9636\u9898\u6682\u672A\u89E3\u9501");
       return;
@@ -1116,6 +1126,9 @@
       onCancel: () => toast("\u672A\u89E3\u9501 \xB7 \u53EF\u968F\u65F6\u518D\u8BD5")
     });
   }
+  function effThrough(stored) {
+    return ADS_ENABLED ? stored : QUESTION_COUNT;
+  }
   function render() {
     if (MONETIZATION.membership || MONETIZATION.coverAd || MONETIZATION.interstitial || MONETIZATION.lockLevels) {
       console.warn("[huanfang] forbidden monetization flag on");
@@ -1131,7 +1144,7 @@
     const progress = loadProgress();
     const done = new Set(progress.completedIds);
     const doneCount = done.size;
-    const unlockedThrough = progress.unlockedThrough;
+    const unlockedThrough = effThrough(progress.unlockedThrough);
     const freeDone = QUESTIONS.filter((q) => parseOrder(q.id) <= FREE_BANK && done.has(q.id)).length;
     const hasProgress = doneCount > 0 || !!progress.currentId || !!progress.session;
     let sessionOk = false;
@@ -1150,7 +1163,7 @@
     <header class="home-header">
       <div class="brand-ring">${icon("play", "ui-icon ui-icon-lg")}</div>
       <h1>${APP_NAME}</h1>
-      <div class="progress-pill">\u8FDB\u5EA6 <b>${doneCount}</b> / ${QUESTION_COUNT} \xB7 \u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</div>
+      <div class="progress-pill">\u8FDB\u5EA6 <b>${doneCount}</b> / ${QUESTION_COUNT} ${ADS_ENABLED ? ` \xB7 \u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}` : ""}</div>
     </header>
     <div class="home-actions">
       <button class="btn btn-primary btn-block" id="btn-start" type="button">
@@ -1158,7 +1171,7 @@
       </button>
       ${hasProgress ? `<button class="btn btn-ghost btn-block" id="btn-resume" type="button">${icon("play")} ${escapeHtml(resumeLabel)}</button>` : ""}
       <button class="btn btn-ghost btn-block" id="btn-picker" type="button">${icon("levels")} \u9898\u53F7\u5217\u8868</button>
-      ${freeAllDone || unlockedThrough > FREE_BANK || canUnlockMore ? `<button class="btn btn-ghost btn-block btn-advanced" id="btn-advanced" type="button">${icon("levels")} \u8FDB\u9636\u9898${unlockedThrough >= QUESTION_COUNT ? " \xB7 \u5DF2\u5168\u5F00" : unlockedThrough > FREE_BANK ? ` \xB7 \u81F3 Q${unlockedThrough}` : " \xB7 \u770B\u89C6\u9891\u89E3\u9501"}</button>` : ""}
+      ${ADS_ENABLED && (freeAllDone || unlockedThrough > FREE_BANK || canUnlockMore) ? `<button class="btn btn-ghost btn-block btn-advanced" id="btn-advanced" type="button">${icon("levels")} \u8FDB\u9636\u9898${unlockedThrough >= QUESTION_COUNT ? " \xB7 \u5DF2\u5168\u5F00" : unlockedThrough > FREE_BANK ? ` \xB7 \u81F3 Q${unlockedThrough}` : " \xB7 \u770B\u89C6\u9891\u89E3\u9501"}</button>` : ""}
     </div>
     <div class="home-footer">
       <div class="home-footer-links">
@@ -1203,7 +1216,7 @@
     const done = completedSet();
     const progress = loadProgress();
     const current = progress.currentId;
-    const unlockedThrough = progress.unlockedThrough;
+    const unlockedThrough = effThrough(progress.unlockedThrough);
     const cellHtml = (q) => {
       const isDone = done.has(q.id);
       const isCur = current === q.id;
@@ -1229,12 +1242,12 @@
       <div class="title">${icon("levels", "ui-icon ui-icon-sm")} \u9898\u53F7\u5217\u8868</div>
       <div style="width:48px"></div>
     </div>
-    <p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</p>
+    ${ADS_ENABLED ? `<p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</p>
     <h3 class="picker-section">\u57FA\u7840\u9898</h3>
     <div class="picker-grid">${freeQs.map(cellHtml).join("")}</div>
     <h3 class="picker-section">\u8FDB\u9636\u533A <span class="picker-section-meta">${ADVANCED_COUNT} \u9898 \xB7 \u6BCF\u6B21\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</span></h3>
-    <div class="picker-grid">${advQs.map(cellHtml).join("")}</div>
-    ${unlockedThrough < QUESTION_COUNT ? `<button class="btn btn-primary btn-block picker-unlock-btn" id="btn-unlock-more" type="button">\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053\u8FDB\u9636\u9898</button>` : '<p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u5168\u90E8\u89E3\u9501 \u{1F389}</p>'}
+    <div class="picker-grid">${advQs.map(cellHtml).join("")}</div>` : `<div class="picker-grid">${QUESTIONS.map(cellHtml).join("")}</div>`}
+    ${!ADS_ENABLED ? "" : unlockedThrough < QUESTION_COUNT ? `<button class="btn btn-primary btn-block picker-unlock-btn" id="btn-unlock-more" type="button">\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053\u8FDB\u9636\u9898</button>` : '<p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u5168\u90E8\u89E3\u9501 \u{1F389}</p>'}
   `;
     document.getElementById("btn-back").onclick = () => goHome();
     const btnUnlock = document.getElementById("btn-unlock-more");
@@ -1347,7 +1360,7 @@
     const q = state.question;
     const next = q ? nextQuestionId(q.id) : null;
     const magic = (_a = q == null ? void 0 : q.magicSum) != null ? _a : "";
-    const unlockedThrough = getUnlockedThrough();
+    const unlockedThrough = effThrough(getUnlockedThrough());
     const nextNum = next ? parseOrder(next) : null;
     const nextLocked = nextNum != null && nextNum > unlockedThrough;
     const isFreeDone = q ? parseOrder(q.id) === FREE_BANK : false;
@@ -1465,17 +1478,17 @@
         <h3>\u63D0\u793A</h3>
         <ul>
           <li>\u70B9\u540D\u62DB\u5F0F\u3001\u5148\u7ED9\u7B97\u5F0F\uFF1B\u540C\u4E00\u76D8\u518D\u70B9\u624D\u7ED9\u6570\u5B57</li>
-          <li>\u6BCF\u5929\u514D\u8D39 ${HINT_DAILY_LIMIT} \u6B21\uFF1B\u7528\u5B8C\u53EF\u770B\u77ED\u89C6\u9891\u518D\u6362 1 \u6B21</li>
+          <li>\u6BCF\u5929\u514D\u8D39 ${HINT_DAILY_LIMIT} \u6B21${ADS_ENABLED ? "\uFF1B\u7528\u5B8C\u53EF\u770B\u77ED\u89C6\u9891\u518D\u6362 1 \u6B21" : ""}</li>
           <li>\u4E0D\u7ED9\u5019\u9009\u6570\u6E05\u5355\u3001\u4E0D\u7ED9\u5168\u76D8\u7B54\u6848</li>
         </ul>
       </section>
 
-      <section class="rules-block">
+      ${ADS_ENABLED ? `<section class="rules-block">
         <h3>\u9898\u5E93</h3>
         <ul>
           <li>\u8FDB\u9636\u533A\u6BCF\u6B21\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</li>
         </ul>
-      </section>
+      </section>` : ""}
 
       <div class="note">\u60F3\u5B66\u62DB\u5F0F\u8BF7\u770B\u300C\u6280\u5DE7\u300D\u9875\u3002</div>
       <div class="rules-footer-actions">
