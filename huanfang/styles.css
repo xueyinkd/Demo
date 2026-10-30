@@ -812,23 +812,115 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
 .rules-card {
   background: var(--card);
   border-radius: var(--radius-card);
-  padding: 20px;
+  padding: 20px 18px 18px;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
-  line-height: 1.7;
-  font-size: 14px;
+  line-height: 1.65;
+  font-size: 15px;
 }
-.rules-card h2 { margin: 0 0 12px; font-size: 20px; }
-.rules-card h3 { margin: 18px 0 8px; font-size: 15px; color: var(--primary); }
-.rules-card ul { padding-left: 1.2em; margin: 0; }
-.rules-card p { margin: 0 0 10px; color: #495057; }
+.rules-card h2 {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.rules-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.rules-card ul {
+  padding-left: 1.15em;
+  margin: 0;
+  color: #495057;
+}
+.rules-card ul li { margin: 0 0 6px; }
+.rules-card ul li:last-child { margin-bottom: 0; }
+.rules-card p { margin: 0 0 8px; color: #495057; }
 .rules-card .note {
-  margin-top: 16px;
+  margin-top: 14px;
   padding: 10px 12px;
   background: var(--primary-mist);
   border-radius: 12px;
   font-size: 13px;
   color: var(--muted);
+  line-height: 1.55;
+}
+
+.rules-block {
+  margin: 0 0 14px;
+  padding: 14px 14px 12px;
+  background: var(--primary-mist);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.rules-block:last-of-type { margin-bottom: 0; }
+.rules-callout {
+  margin: 10px 0 0 !important;
+  padding: 8px 12px;
+  background: var(--amber-soft);
+  border-left: 3px solid var(--amber);
+  border-radius: 10px;
+  color: var(--text) !important;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.rules-lines-demo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0 10px;
+  flex-wrap: wrap;
+}
+.rules-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  grid-template-rows: repeat(3, 36px);
+  gap: 4px;
+  flex-shrink: 0;
+}
+.rules-mini-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.rules-lines-legend {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.rules-lines-legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.dot-row { background: var(--primary); }
+.dot-col { background: var(--amber); }
+.dot-diag { background: var(--ok); }
+.rules-caption {
+  margin: 0 !important;
+  font-size: 13px;
+  color: var(--muted) !important;
+  line-height: 1.5;
 }
 
 .tip-list {
@@ -1086,12 +1178,5 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
   color: var(--muted);
 }
 
-.rules-hero {
-  display: block;
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto 16px;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow);
-  background: var(--card);
-}
+/* rules_simple.png 已停用；保留空规则以免旧缓存 CSS 报错 */
+.rules-hero { display: none; }
