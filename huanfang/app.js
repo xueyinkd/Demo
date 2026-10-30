@@ -15,18 +15,31 @@
     rewardDurationSec: 15,
     skipAfterSec: 5,
     title: "\u4ECA\u5929\u7684\u514D\u8D39\u63D0\u793A\u7528\u5B8C\u5566\uFF083/3\uFF09",
-    sub: "\u770B\u5B8C\u5C0F\u89C6\u9891\uFF0C\u518D\u9001\u4F60 1 \u6B21\u63D0\u793A",
+    sub: "\u770B\u77ED\u89C6\u9891\u5F97 1 \u6B21\u63D0\u793A",
     primary: "\u770B\u89C6\u9891\u6362\u63D0\u793A",
     secondary: "\u7A0D\u540E\u518D\u8BF4",
     footer: "\u6BCF\u5929\u514D\u8D39 3 \u6B21 \xB7 \u4E0D\u7528\u5F00\u901A\u4F1A\u5458",
     playingHint: "\u5927\u6982\u5341\u51E0\u79D2 \xB7 \u770B\u5B8C\u5C31\u9001\u63D0\u793A",
     claim: "\u770B\u5B8C\u9886\u53D6"
   };
+  var ADVANCED = {
+    freeBank: 50,
+    unlockPerReward: 10
+  };
+  var ADS_ADVANCED = {
+    title: "\u8FDB\u9636\u9898\u9700\u8981\u89E3\u9501",
+    sub: "\u770B\u77ED\u89C6\u9891\u89E3\u9501 10 \u9053\u8FDB\u9636\u9898",
+    primary: "\u770B\u89C6\u9891\u89E3\u9501 10 \u9898",
+    secondary: "\u7A0D\u540E\u518D\u8BF4",
+    footer: "\u4E0D\u7528\u5F00\u901A\u4F1A\u5458 \xB7 \u8DF3\u8FC7\u4E0D\u89E3\u9501",
+    playingHint: "\u5927\u6982\u5341\u51E0\u79D2 \xB7 \u770B\u5B8C\u89E3\u9501 10 \u9053",
+    claim: "\u770B\u5B8C\u89E3\u9501"
+  };
   var APP_NAME = "\u5E7B\u65B9";
-  var QUESTION_BANK_SIZE = 100;
+  var QUESTION_BANK_SIZE = ADVANCED.freeBank;
   var HINT_DAILY_LIMIT = 3;
-  var STORAGE_KEY = "huanfang:v0.4";
-  var LEGACY_STORAGE_KEYS = ["huanfang:v0.3", "huanfang:v0.2", "huanfang:v0.1"];
+  var STORAGE_KEY = "huanfang:v0.6";
+  var LEGACY_STORAGE_KEYS = ["huanfang:v0.4", "huanfang:v0.3", "huanfang:v0.2", "huanfang:v0.1"];
   var UI_ICONS = {
     play: "assets/ui/icons/icon_play.png",
     levels: "assets/ui/icons/icon_levels.png",
@@ -37,6 +50,7 @@
     check: "assets/ui/icons/icon_check.png"
   };
   var SHARE_CARD_IMG = "assets/ui/share/share_card.png";
+  var SHARE_URL = "https://xueyinkd.github.io/Demo/huanfang/";
 
   // src/magic.ts
   function makeLines(order) {
@@ -106,7 +120,9 @@
   }
 
   // src/questions.ts
-  var QUESTION_COUNT = 100;
+  var FREE_BANK = 50;
+  var ADVANCED_COUNT = 80;
+  var QUESTION_COUNT = 130;
   var QUESTIONS = [
     { id: "Q1", order: 3, digits: [1, 2, 3, 4, 5, 6, 7, 8, 9], magicSum: 15, given: [null, 3, 4, 1, 5, null, 6, 7, null] },
     { id: "Q2", order: 3, digits: [1, 2, 3, 4, 5, 6, 7, 8, 9], magicSum: 15, given: [6, 7, 2, null, 5, 9, null, 3, null] },
@@ -207,7 +223,37 @@
     { id: "Q97", order: 3, digits: [30, 31, 32, 33, 34, 35, 36, 37, 38], magicSum: 102, given: [null, null, null, null, null, 38, 37, null, 33] },
     { id: "Q98", order: 3, digits: [30, 31, 32, 33, 34, 35, 36, 37, 38], magicSum: 102, given: [null, 38, null, null, null, 32, null, 30, null] },
     { id: "Q99", order: 3, digits: [50, 51, 52, 53, 54, 55, 56, 57, 58], magicSum: 162, given: [null, null, 53, null, 54, null, null, 50, 57] },
-    { id: "Q100", order: 3, digits: [50, 51, 52, 53, 54, 55, 56, 57, 58], magicSum: 162, given: [55, null, 57, null, null, 52, null, null, null] }
+    { id: "Q100", order: 3, digits: [50, 51, 52, 53, 54, 55, 56, 57, 58], magicSum: 162, given: [55, null, 57, null, null, 52, null, null, null] },
+    { id: "Q101", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [83, null, null, 88, null, 80, null, null, null] },
+    { id: "Q102", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [null, null, null, 80, null, 88, 87, null, null] },
+    { id: "Q103", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [87, null, null, null, 84, null, 85, null, null] },
+    { id: "Q104", order: 3, digits: [60, 61, 62, 63, 64, 65, 66, 67, 68], magicSum: 192, given: [null, 66, 65, null, null, null, 63, null, null] },
+    { id: "Q105", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [87, null, null, null, null, null, null, 88, 81] },
+    { id: "Q106", order: 3, digits: [60, 61, 62, 63, 64, 65, 66, 67, 68], magicSum: 192, given: [null, null, null, null, 64, 62, null, null, 67] },
+    { id: "Q107", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, 106, null, null, 104, null, null, null, 103] },
+    { id: "Q108", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [101, 106, null, null, null, 100, null, null, null] },
+    { id: "Q109", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [87, 82, null, 80, null, null, null, null, null] },
+    { id: "Q110", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, null, null, 106, null, 102, 105, null, null] },
+    { id: "Q111", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, 102, null, null, null, null, 105, null, 101] },
+    { id: "Q112", order: 3, digits: [80, 81, 82, 83, 84, 85, 86, 87, 88], magicSum: 252, given: [null, null, null, null, null, null, 87, 80, 85] },
+    { id: "Q113", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, null, null, null, 104, 108, null, null, 101] },
+    { id: "Q114", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, null, null, 108, 104, null, 101, null, null] },
+    { id: "Q115", order: 3, digits: [100, 101, 102, 103, 104, 105, 106, 107, 108], magicSum: 312, given: [null, null, null, null, null, 108, 107, 102, null] },
+    { id: "Q116", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, null, 210, 216, 208, null, null, null, null] },
+    { id: "Q117", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, null, 210, null, 208, 212, null, null, null] },
+    { id: "Q118", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, null, null, 204, null, null, null, 216, 202] },
+    { id: "Q119", order: 3, digits: [120, 121, 122, 123, 124, 125, 126, 127, 128], magicSum: 372, given: [null, null, null, 126, null, 122, 121, null, null] },
+    { id: "Q120", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, 212, null, null, 208, 216, null, null, null] },
+    { id: "Q121", order: 3, digits: [150, 151, 152, 153, 154, 155, 156, 157, 158], magicSum: 462, given: [null, 158, null, 152, null, null, null, 150, null] },
+    { id: "Q122", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, null, null, 200, 208, null, 214, null, null] },
+    { id: "Q123", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, 200, null, null, null, 204, null, 216, null] },
+    { id: "Q124", order: 3, digits: [120, 121, 122, 123, 124, 125, 126, 127, 128], magicSum: 372, given: [null, null, 127, 126, null, null, 121, null, null] },
+    { id: "Q125", order: 3, digits: [120, 121, 122, 123, 124, 125, 126, 127, 128], magicSum: 372, given: [null, null, null, null, null, 122, 121, 128, null] },
+    { id: "Q126", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [214, 204, null, null, null, null, null, null, 202] },
+    { id: "Q127", order: 3, digits: [120, 121, 122, 123, 124, 125, 126, 127, 128], magicSum: 372, given: [127, null, null, null, null, null, 123, null, 121] },
+    { id: "Q128", order: 3, digits: [150, 151, 152, 153, 154, 155, 156, 157, 158], magicSum: 462, given: [null, null, null, 158, 154, null, null, 152, null] },
+    { id: "Q129", order: 3, digits: [150, 151, 152, 153, 154, 155, 156, 157, 158], magicSum: 462, given: [153, 152, null, null, null, null, 151, null, null] },
+    { id: "Q130", order: 3, digits: [200, 202, 204, 206, 208, 210, 212, 214, 216], magicSum: 624, given: [null, null, null, null, null, 212, null, 200, 210] }
   ];
   function getQuestion(id) {
     const q = QUESTIONS.find((x) => x.id === id);
@@ -219,6 +265,9 @@
     if (idx < 0 || idx >= QUESTIONS.length - 1) return null;
     return QUESTIONS[idx + 1].id;
   }
+  function parseOrder(id) {
+    return Number(id.replace(/^Q/, ""));
+  }
 
   // src/storage.ts
   var legacyCleared = false;
@@ -226,7 +275,15 @@
     if (legacyCleared) return;
     legacyCleared = true;
     try {
-      for (const k of LEGACY_STORAGE_KEYS) localStorage.removeItem(k);
+      for (const k of LEGACY_STORAGE_KEYS) {
+        if (k === "huanfang:v0.4") {
+          const old = localStorage.getItem(k);
+          if (old && !localStorage.getItem(STORAGE_KEY)) {
+            localStorage.setItem(STORAGE_KEY, old);
+          }
+        }
+        localStorage.removeItem(k);
+      }
     } catch {
     }
   }
@@ -235,7 +292,9 @@
     currentId: null,
     session: null,
     hintDay: todayKey(),
-    hintUsed: 0
+    hintUsed: 0,
+    unlockedThrough: ADVANCED.freeBank,
+    advancedRewardCount: 0
   });
   function todayKey() {
     return new Intl.DateTimeFormat("en-CA", {
@@ -271,6 +330,19 @@
     if (p.hintDay !== todayKey()) {
       p.hintDay = todayKey();
       p.hintUsed = 0;
+    }
+    if (typeof raw.unlockedThrough === "number" && Number.isFinite(raw.unlockedThrough)) {
+      p.unlockedThrough = Math.max(ADVANCED.freeBank, Math.floor(raw.unlockedThrough));
+    } else {
+      p.unlockedThrough = ADVANCED.freeBank;
+    }
+    if (typeof raw.advancedRewardCount === "number" && Number.isFinite(raw.advancedRewardCount)) {
+      p.advancedRewardCount = Math.max(0, Math.floor(raw.advancedRewardCount));
+    } else {
+      p.advancedRewardCount = Math.max(
+        0,
+        Math.floor((p.unlockedThrough - ADVANCED.freeBank) / ADVANCED.unlockPerReward)
+      );
     }
     return p;
   }
@@ -325,6 +397,24 @@
     const p = loadProgress();
     if (p.hintDay !== todayKey()) return HINT_DAILY_LIMIT;
     return Math.max(0, HINT_DAILY_LIMIT - p.hintUsed);
+  }
+  function getUnlockedThrough() {
+    return loadProgress().unlockedThrough;
+  }
+  function isQuestionNumUnlocked(num) {
+    return num <= getUnlockedThrough();
+  }
+  function isQuestionIdUnlocked(id) {
+    const num = Number(String(id).replace(/^Q/i, ""));
+    if (!Number.isFinite(num)) return false;
+    return isQuestionNumUnlocked(num);
+  }
+  function unlockNextAdvancedBatch() {
+    const p = loadProgress();
+    p.unlockedThrough = Math.max(ADVANCED.freeBank, p.unlockedThrough) + ADVANCED.unlockPerReward;
+    p.advancedRewardCount = (p.advancedRewardCount || 0) + 1;
+    saveProgress(p);
+    return p.unlockedThrough;
   }
 
   // src/hint.ts
@@ -512,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "20261030.0935-v061" : String(Date.now());
+  var BUILD = true ? "1793328888990" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -577,6 +667,10 @@
     saveSession(null);
   }
   function beginQuestion(q, resume) {
+    if (!isQuestionIdUnlocked(q.id)) {
+      offerAdvancedUnlock(q.id);
+      return;
+    }
     stopTimer();
     state.question = q;
     state.givenMask = givenMaskOf(q);
@@ -615,7 +709,8 @@
       }
     }
     const done = new Set(progress.completedIds);
-    const next = QUESTIONS.find((x) => !done.has(x.id));
+    const through = progress.unlockedThrough;
+    const next = QUESTIONS.find((x) => !done.has(x.id) && parseOrder(x.id) <= through);
     return { q: next != null ? next : QUESTIONS[0] };
   }
   function goHome() {
@@ -791,7 +886,7 @@
     toast("\u6CA1\u6709\u53EF\u64A4\u9500\u7684\u6B65\u9AA4");
   }
   function onWin() {
-    var _a;
+    var _a, _b;
     stopTimer();
     state.winElapsed = state.elapsedMs;
     if (state.question) markCompleted(state.question.id);
@@ -799,7 +894,8 @@
     const t = formatTime(state.winElapsed);
     const q = state.question;
     const id = (_a = q == null ? void 0 : q.id) != null ? _a : "";
-    state.shareText = `\u5E7B\u65B9 \xB7 ${id} \u7528\u65F6 ${t} \xB7 8 \u7EBF\u5168\u90E8\u5BF9\u9F50`;
+    const sum = (_b = q == null ? void 0 : q.magicSum) != null ? _b : "";
+    state.shareText = `\u5E7B\u65B9 \xB7 ${id} \u7528\u65F6 ${t} \xB7 8 \u7EBF\u5168\u90E8\u5BF9\u9F50 \xB7 \u548C=${sum}`;
     state.screen = "win";
     render();
   }
@@ -842,6 +938,15 @@
     }
     if (MONETIZATION.rewardAfterQuota && ADS.fakeRewardEnabled) {
       openFakeRewardAd({
+        copy: {
+          title: ADS.title,
+          sub: ADS.sub,
+          primary: ADS.primary,
+          secondary: ADS.secondary,
+          footer: ADS.footer,
+          playingHint: ADS.playingHint,
+          claim: ADS.claim
+        },
         onSuccess: () => {
           applyHint("\uFF08\u6FC0\u52B1\u5DF2\u89E3\u9501 1 \u6B21\u63D0\u793A\uFF09");
           toast("\u5DF2\u89E3\u9501 1 \u6B21\u63D0\u793A");
@@ -853,31 +958,41 @@
     toast(`\u4ECA\u65E5\u63D0\u793A\u5DF2\u7528\u5B8C\uFF08${HINT_DAILY_LIMIT} \u6B21\uFF09`);
   }
   function openFakeRewardAd(opts) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n;
     const existing = document.getElementById("fake-ad-overlay");
     if (existing) existing.remove();
+    const copy = {
+      title: (_b = (_a = opts.copy) == null ? void 0 : _a.title) != null ? _b : ADS.title,
+      sub: (_d = (_c = opts.copy) == null ? void 0 : _c.sub) != null ? _d : ADS.sub,
+      primary: (_f = (_e = opts.copy) == null ? void 0 : _e.primary) != null ? _f : ADS.primary,
+      secondary: (_h = (_g = opts.copy) == null ? void 0 : _g.secondary) != null ? _h : ADS.secondary,
+      footer: (_j = (_i = opts.copy) == null ? void 0 : _i.footer) != null ? _j : ADS.footer,
+      playingHint: (_l = (_k = opts.copy) == null ? void 0 : _k.playingHint) != null ? _l : ADS.playingHint,
+      claim: (_n = (_m = opts.copy) == null ? void 0 : _m.claim) != null ? _n : ADS.claim
+    };
     const dur = ADS.rewardDurationSec;
     const unlockAt = ADS.skipAfterSec;
     const overlay = document.createElement("div");
     overlay.id = "fake-ad-overlay";
     overlay.className = "fake-ad-overlay";
     overlay.innerHTML = `
-    <div class="fake-ad-card" role="dialog" aria-modal="true" aria-label="\u63D0\u793A\u95E8">
+    <div class="fake-ad-card" role="dialog" aria-modal="true" aria-label="\u6FC0\u52B1\u89C6\u9891">
       <div class="fake-ad-accent"></div>
       <div class="fake-ad-icon-wrap"><img class="fake-ad-icon" src="${UI_ICONS.hint}" alt="" width="40" height="40" /></div>
-      <h3 class="fake-ad-title">${ADS.title}</h3>
-      <p class="fake-ad-sub">${ADS.sub}</p>
+      <h3 class="fake-ad-title">${copy.title}</h3>
+      <p class="fake-ad-sub">${copy.sub}</p>
       <div class="fake-ad-stage" id="fake-ad-stage">
         <div class="fake-ad-placeholder">
           <span class="fake-ad-play">\u25B6</span>
           <span class="fake-ad-ad-badge">\u5E7F\u544A\u793A\u610F</span>
-          <span class="fake-ad-stage-hint">${ADS.playingHint}</span>
+          <span class="fake-ad-stage-hint">${copy.playingHint}</span>
         </div>
       </div>
       <div class="fake-ad-actions-col" id="fake-ad-actions">
-        <button type="button" class="btn btn-primary btn-block" id="fake-ad-start">${ADS.primary}</button>
-        <button type="button" class="btn btn-ghost btn-block" id="fake-ad-later">${ADS.secondary}</button>
+        <button type="button" class="btn btn-primary btn-block" id="fake-ad-start">${copy.primary}</button>
+        <button type="button" class="btn btn-ghost btn-block" id="fake-ad-later">${copy.secondary}</button>
       </div>
-      <p class="fake-ad-footer">${ADS.footer}</p>
+      <p class="fake-ad-footer">${copy.footer}</p>
     </div>`;
     document.body.appendChild(overlay);
     let sec = 0;
@@ -904,11 +1019,11 @@
         <span class="fake-ad-ad-badge">\u5E7F\u544A\u793A\u610F</span>
         <div class="fake-ad-progress"><div class="fake-ad-bar" id="fake-ad-bar"></div></div>
         <div class="fake-ad-timer" id="fake-ad-timer">0 / ${dur}s</div>
-        <p class="fake-ad-stage-hint">${ADS.playingHint}</p>
+        <p class="fake-ad-stage-hint">${copy.playingHint}</p>
       </div>`;
       actions.innerHTML = `
-      <button type="button" class="btn btn-primary btn-block" id="fake-ad-claim" disabled>${ADS.claim}</button>
-      <button type="button" class="btn btn-ghost btn-block" id="fake-ad-close">${ADS.secondary}</button>`;
+      <button type="button" class="btn btn-primary btn-block" id="fake-ad-claim" disabled>${copy.claim}</button>
+      <button type="button" class="btn btn-ghost btn-block" id="fake-ad-close">${copy.secondary}</button>`;
       const bar = overlay.querySelector("#fake-ad-bar");
       const timerEl = overlay.querySelector("#fake-ad-timer");
       const claimBtn = overlay.querySelector("#fake-ad-claim");
@@ -949,6 +1064,37 @@
   function guideText(_q) {
     return `\u70B9\u7A7A\u683C\u540E\u81EA\u884C\u8F93\u5165\u6570\u5B57\uFF0C\u8BA9\u6BCF\u4E00\u884C\u3001\u6BCF\u4E00\u5217\u3001\u4E24\u6761\u5BF9\u89D2\u7EBF\u7684\u548C\u90FD\u4E00\u6837\u3002\u63D0\u793A\u4F1A\u70B9\u540D\u62DB\u5F0F\u3001\u53EA\u63A8\u4E00\u6B65\uFF0C\u4E0D\u7ED9\u5019\u9009\u6570\u6E05\u5355\u3002`;
   }
+  function offerAdvancedUnlock(targetId) {
+    if (!ADS.fakeRewardEnabled) {
+      toast("\u8FDB\u9636\u9898\u6682\u672A\u89E3\u9501");
+      return;
+    }
+    const through = getUnlockedThrough();
+    const nextCap = through + ADVANCED.unlockPerReward;
+    openFakeRewardAd({
+      copy: {
+        title: ADS_ADVANCED.title,
+        sub: ADS_ADVANCED.sub,
+        primary: ADS_ADVANCED.primary,
+        secondary: ADS_ADVANCED.secondary,
+        footer: ADS_ADVANCED.footer,
+        playingHint: ADS_ADVANCED.playingHint,
+        claim: ADS_ADVANCED.claim
+      },
+      onSuccess: () => {
+        const neu = unlockNextAdvancedBatch();
+        toast(`\u5DF2\u89E3\u9501\u81F3 Q${neu}\uFF08+${ADVANCED.unlockPerReward} \u9898\uFF09`);
+        if (targetId && isQuestionIdUnlocked(targetId)) {
+          beginQuestion(getQuestion(targetId));
+        } else {
+          const first = QUESTIONS.find((x) => parseOrder(x.id) === through + 1);
+          if (first && isQuestionIdUnlocked(first.id)) beginQuestion(first);
+          else render();
+        }
+      },
+      onCancel: () => toast("\u672A\u89E3\u9501 \xB7 \u53EF\u968F\u65F6\u518D\u8BD5")
+    });
+  }
   function render() {
     if (MONETIZATION.membership || MONETIZATION.coverAd || MONETIZATION.interstitial || MONETIZATION.lockLevels) {
       console.warn("[huanfang] forbidden monetization flag on");
@@ -964,6 +1110,8 @@
     const progress = loadProgress();
     const done = new Set(progress.completedIds);
     const doneCount = done.size;
+    const unlockedThrough = progress.unlockedThrough;
+    const freeDone = QUESTIONS.filter((q) => parseOrder(q.id) <= FREE_BANK && done.has(q.id)).length;
     const hasProgress = doneCount > 0 || !!progress.currentId || !!progress.session;
     let sessionOk = false;
     if (progress.session) {
@@ -975,12 +1123,14 @@
       }
     }
     const resumeLabel = sessionOk ? `\u7EED\u5237 \xB7 ${progress.session.questionId}` : progress.currentId ? `\u7EED\u5237 \xB7 ${progress.currentId}` : "\u7EED\u5237";
+    const freeAllDone = freeDone >= FREE_BANK;
+    const canUnlockMore = unlockedThrough < QUESTION_COUNT;
     app.innerHTML = `
     <header class="home-header">
       <div class="brand-ring">${icon("play", "ui-icon ui-icon-lg")}</div>
       <h1>${APP_NAME}</h1>
-      <p class="tagline">\u7EC3\u4E60\u9898\u5E93 \xB7 100 \u9053\u4E09\u9636 \xB7 \u7531\u6613\u5230\u96BE</p>
-      <div class="progress-pill">\u8FDB\u5EA6 <b>${doneCount}</b> / ${QUESTION_BANK_SIZE}</div>
+      <p class="tagline">\u7EC3\u4E60\u9898\u5E93 \xB7 ${QUESTION_COUNT} \u9053\u4E09\u9636 \xB7 \u524D ${FREE_BANK} \u9898\u514D\u8D39</p>
+      <div class="progress-pill">\u8FDB\u5EA6 <b>${doneCount}</b> / ${QUESTION_COUNT} \xB7 \u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</div>
     </header>
     <div class="home-actions">
       <button class="btn btn-primary btn-block" id="btn-start" type="button">
@@ -988,14 +1138,15 @@
       </button>
       ${hasProgress ? `<button class="btn btn-ghost btn-block" id="btn-resume" type="button">${icon("play")} ${escapeHtml(resumeLabel)}</button>` : ""}
       <button class="btn btn-ghost btn-block" id="btn-picker" type="button">${icon("levels")} \u9898\u53F7\u5217\u8868</button>
+      ${freeAllDone || unlockedThrough > FREE_BANK || canUnlockMore ? `<button class="btn btn-ghost btn-block btn-advanced" id="btn-advanced" type="button">${icon("levels")} \u8FDB\u9636\u9898${unlockedThrough >= QUESTION_COUNT ? " \xB7 \u5DF2\u5168\u5F00" : unlockedThrough > FREE_BANK ? ` \xB7 \u81F3 Q${unlockedThrough}` : " \xB7 \u770B\u89C6\u9891\u89E3\u9501"}</button>` : ""}
     </div>
     <div class="home-footer">
-      <p class="pledge">\u6CA1\u6709\u63D2\u5C4F\u6253\u6270 \xB7 \u6CA1\u6709\u4F1A\u5458 \xB7 \u9898\u53F7\u968F\u4FBF\u8DF3</p>
+      <p class="pledge">\u6CA1\u6709\u63D2\u5C4F\u6253\u6270 \xB7 \u6CA1\u6709\u4F1A\u5458 \xB7 \u524D ${FREE_BANK} \u9898\u968F\u4FBF\u8FDB</p>
       <div class="home-footer-links">
         <button class="btn btn-ghost btn-sm" id="btn-rules" type="button">${icon("rules")} \u89C4\u5219</button>
         <button class="btn btn-ghost btn-sm" id="btn-tips" type="button">${icon("hint")} \u6280\u5DE7</button>
       </div>
-      <div class="ver">v0.6.1 \xB7 UI v1.3 \xB7 build ${BUILD}</div>
+      <div class="ver">v0.6.2 \xB7 UI v1.3 \xB7 build ${BUILD}</div>
     </div>
   `;
     document.getElementById("btn-start").onclick = () => {
@@ -1010,6 +1161,22 @@
       };
     }
     document.getElementById("btn-picker").onclick = () => goPicker();
+    const btnAdv = document.getElementById("btn-advanced");
+    if (btnAdv) {
+      btnAdv.onclick = () => {
+        if (unlockedThrough >= QUESTION_COUNT) {
+          goPicker();
+          return;
+        }
+        if (unlockedThrough > FREE_BANK) {
+          const next = QUESTIONS.find((x) => parseOrder(x.id) === unlockedThrough) || QUESTIONS.find((x) => parseOrder(x.id) === FREE_BANK + 1);
+          if (next && isQuestionIdUnlocked(next.id)) beginQuestion(next);
+          else offerAdvancedUnlock();
+          return;
+        }
+        offerAdvancedUnlock(`Q${FREE_BANK + 1}`);
+      };
+    }
     document.getElementById("btn-rules").onclick = () => goRules();
     document.getElementById("btn-tips").onclick = () => goTips();
   }
@@ -1017,28 +1184,49 @@
     const done = completedSet();
     const progress = loadProgress();
     const current = progress.currentId;
-    const cells = QUESTIONS.map((q) => {
+    const unlockedThrough = progress.unlockedThrough;
+    const cellHtml = (q) => {
       const isDone = done.has(q.id);
       const isCur = current === q.id;
-      const num = q.id.replace(/^Q/, "");
-      return `<button type="button" class="picker-cell${isDone ? " done" : ""}${isCur ? " current" : ""}" data-qid="${q.id}" aria-label="${q.id}">
+      const num = parseOrder(q.id);
+      const locked = num > unlockedThrough;
+      const cls = [
+        "picker-cell",
+        isDone ? "done" : "",
+        isCur ? "current" : "",
+        locked ? "locked" : "",
+        num > FREE_BANK ? "advanced" : "free"
+      ].filter(Boolean).join(" ");
+      return `<button type="button" class="${cls}" data-qid="${q.id}" data-locked="${locked ? "1" : "0"}" aria-label="${q.id}${locked ? " \u672A\u89E3\u9501" : ""}">
       <span class="picker-num">${num}</span>
-      ${isDone ? `<span class="picker-check">${icon("check", "ui-icon ui-icon-sm")}</span>` : ""}
+      ${locked ? '<span class="picker-lock">\u9501</span>' : isDone ? `<span class="picker-check">${icon("check", "ui-icon ui-icon-sm")}</span>` : ""}
     </button>`;
-    }).join("");
+    };
+    const freeQs = QUESTIONS.filter((q) => parseOrder(q.id) <= FREE_BANK);
+    const advQs = QUESTIONS.filter((q) => parseOrder(q.id) > FREE_BANK);
     app.innerHTML = `
     <div class="topbar">
       <button class="btn btn-ghost btn-sm" id="btn-back" type="button">\u8FD4\u56DE</button>
       <div class="title">${icon("levels", "ui-icon ui-icon-sm")} \u9898\u53F7\u5217\u8868</div>
       <div style="width:48px"></div>
     </div>
-    <p class="picker-hint">\u5171 ${QUESTION_COUNT} \u9898 \xB7 \u4E0D\u9501\u5173 \xB7 \u70B9\u4EFB\u610F\u9898\u53F7\u8FDB\u5165</p>
-    <div class="picker-grid">${cells}</div>
+    <p class="picker-hint">\u514D\u8D39\u533A Q1\u2013Q${FREE_BANK} \u5168\u5F00 \xB7 \u8FDB\u9636\u533A\u5DF2\u89E3\u9501\u81F3 Q${unlockedThrough}</p>
+    <h3 class="picker-section">\u514D\u8D39\u533A</h3>
+    <div class="picker-grid">${freeQs.map(cellHtml).join("")}</div>
+    <h3 class="picker-section">\u8FDB\u9636\u533A <span class="picker-section-meta">${ADVANCED_COUNT} \u9898 \xB7 \u6BCF\u6B21\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</span></h3>
+    <div class="picker-grid">${advQs.map(cellHtml).join("")}</div>
+    ${unlockedThrough < QUESTION_COUNT ? `<button class="btn btn-primary btn-block picker-unlock-btn" id="btn-unlock-more" type="button">\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053\u8FDB\u9636\u9898</button>` : '<p class="picker-hint">\u8FDB\u9636\u9898\u5DF2\u5168\u90E8\u89E3\u9501 \u{1F389}</p>'}
   `;
     document.getElementById("btn-back").onclick = () => goHome();
+    const btnUnlock = document.getElementById("btn-unlock-more");
+    if (btnUnlock) btnUnlock.onclick = () => offerAdvancedUnlock();
     app.querySelectorAll("[data-qid]").forEach((btn) => {
       btn.onclick = () => {
         const id = btn.dataset.qid;
+        if (btn.dataset.locked === "1") {
+          offerAdvancedUnlock(id);
+          return;
+        }
         beginQuestion(getQuestion(id));
       };
     });
@@ -1136,40 +1324,65 @@
     });
   }
   function renderWin() {
-    var _a;
+    var _a, _b;
     const q = state.question;
     const next = q ? nextQuestionId(q.id) : null;
-    const isLast = (q == null ? void 0 : q.id) === "Q100";
+    const magic = (_a = q == null ? void 0 : q.magicSum) != null ? _a : "";
+    const unlockedThrough = getUnlockedThrough();
+    const nextNum = next ? parseOrder(next) : null;
+    const nextLocked = nextNum != null && nextNum > unlockedThrough;
+    const isFreeDone = q ? parseOrder(q.id) === FREE_BANK : false;
+    const isBankDone = q ? parseOrder(q.id) === QUESTION_COUNT : false;
+    const timeStr = formatTime(state.winElapsed);
+    let primaryBtn = "";
+    if (next && !nextLocked) {
+      primaryBtn = `<button class="btn btn-primary btn-block" id="btn-next" type="button">${icon("play")} \u4E0B\u4E00\u9898</button>`;
+    } else if (next && nextLocked) {
+      primaryBtn = `<button class="btn btn-primary btn-block" id="btn-unlock-next" type="button">${icon("play")} \u770B\u89C6\u9891\u89E3\u9501\u8FDB\u9636\u9898</button>`;
+    } else {
+      primaryBtn = `<button class="btn btn-primary btn-block" id="btn-done" type="button">\u9898\u5E93\u5B8C\u6210 \xB7 \u56DE\u9996\u9875</button>`;
+    }
     app.innerHTML = `
     <div class="win-card">
       <div class="win-badge">${icon("check", "ui-icon ui-icon-lg")}</div>
       <h2>\u592A\u68D2\u4E86\uFF0C\u901A\u5173\uFF01</h2>
-      <div class="win-sum">8 \u6761\u7EBF\u7684\u548C\u5168\u90E8\u76F8\u540C \u2713</div>
-      <div class="win-time">\u7528\u65F6 ${formatTime(state.winElapsed)} \xB7 ${escapeHtml((_a = q == null ? void 0 : q.id) != null ? _a : "")}</div>
+      <div class="win-sum">8 \u6761\u7EBF\u7684\u548C\u5168\u90E8\u662F ${magic} \u2713</div>
+      <div class="win-time">\u7528\u65F6 ${timeStr} \xB7 ${escapeHtml((_b = q == null ? void 0 : q.id) != null ? _b : "")}</div>
       <div class="win-time-accent" aria-hidden="true"></div>
       <div class="win-actions">
-        ${next ? `<button class="btn btn-primary btn-block" id="btn-next" type="button">${icon("play")} \u4E0B\u4E00\u9898</button>` : `<button class="btn btn-primary btn-block" id="btn-done" type="button">\u9898\u5E93\u5B8C\u6210 \xB7 \u56DE\u9996\u9875</button>`}
+        ${primaryBtn}
         <button class="btn btn-ghost btn-block" id="btn-home" type="button">\u56DE\u9996\u9875</button>
         <button class="btn btn-ghost btn-block" id="btn-copy" type="button">${icon("share")} \u590D\u5236\u5206\u4EAB\u6587\u6848</button>
       </div>
       <div class="share-card-wrap">
-        <img class="share-card-bg" src="${SHARE_CARD_IMG}" alt="\u5206\u4EAB\u5361" width="500" height="400" decoding="async" />
-        <div class="share-overlay">${formatTime(state.winElapsed)}</div>
+        <img class="share-card-bg" src="${SHARE_CARD_IMG}?v=${BUILD}" alt="\u5206\u4EAB\u5361" width="500" height="400" decoding="async" />
+        <div class="share-overlay-title">\u7B2C ${q ? parseOrder(q.id) : ""} \u9898 \xB7 \u901A\u5173\u5566</div>
+        <div class="share-overlay">
+          <div class="share-overlay-sum">8 \u7EBF\u5168\u90E8\u5BF9\u9F50 \xB7 \u548C=${magic}</div>
+          <div class="share-overlay-time">${timeStr}</div>
+        </div>
       </div>
-      <div class="share-box">${escapeHtml(state.shareText)}</div>
-      ${isLast ? '<p class="win-bank-done">\u5DF2\u5237\u5B8C 100 \u9053\u7EC3\u4E60\u9898 \u{1F389}</p>' : ""}
+      <div class="share-box">${escapeHtml(state.shareText)}
+        <div class="share-url">${SHARE_URL}</div>
+      </div>
+      ${isFreeDone && nextLocked ? '<p class="win-bank-done">\u514D\u8D39\u533A\u5237\u5B8C\u5566 \xB7 \u8FDB\u9636\u9898\u770B\u77ED\u89C6\u9891\u89E3\u9501 \u{1F389}</p>' : ""}
+      ${isBankDone ? '<p class="win-bank-done">\u5DF2\u5237\u5B8C\u5168\u90E8\u9898\u5E93 \u{1F389}</p>' : ""}
     </div>
   `;
     const btnNext = document.getElementById("btn-next");
     if (btnNext && next) {
       btnNext.onclick = () => beginQuestion(getQuestion(next));
     }
+    const btnUnlockNext = document.getElementById("btn-unlock-next");
+    if (btnUnlockNext && next) {
+      btnUnlockNext.onclick = () => offerAdvancedUnlock(next);
+    }
     const btnDone = document.getElementById("btn-done");
     if (btnDone) btnDone.onclick = () => goHome();
     document.getElementById("btn-home").onclick = () => goHome();
     document.getElementById("btn-copy").onclick = async () => {
       try {
-        await navigator.clipboard.writeText(state.shareText);
+        await navigator.clipboard.writeText(state.shareText + " " + SHARE_URL);
         toast("\u5DF2\u590D\u5236");
       } catch {
         toast(state.shareText, 4e3);
@@ -1204,10 +1417,10 @@
       </ul>
       <h3>\u9898\u5E93\u4E0E\u901A\u5173</h3>
       <ul>
-        <li>\u56FA\u5B9A <b>100</b> \u9053\u4E09\u9636\u9898\uFF0C\u7531\u6613\u5230\u96BE\uFF1B\u5BF9\u5C40\u4E0D\u5C55\u793A\u6570\u5B57\u8303\u56F4\u6216\u5907\u9009\u6E05\u5355</li>
-        <li>\u4E0D\u9501\u5173\uFF1A\u9898\u53F7\u5217\u8868\u53EF\u8DF3\u4EFB\u610F\u9898\uFF1B\u901A\u5173\u4E3B\u6309\u94AE\u300C\u4E0B\u4E00\u9898\u300D\u8FDE\u5237</li>
+        <li>\u5171 <b>${QUESTION_COUNT}</b> \u9053\u4E09\u9636\u9898\uFF1B\u524D <b>${FREE_BANK}</b> \u9898\u514D\u8D39\u5168\u5F00\uFF0C\u8FDB\u9636\u533A\u6BCF\u6B21\u770B\u77ED\u89C6\u9891\u89E3\u9501 ${ADVANCED.unlockPerReward} \u9053</li>
+        <li>\u4E0D\u9501\u5173\uFF1A\u514D\u8D39\u533A\u9898\u53F7\u968F\u4FBF\u8DF3\uFF1B\u8FDB\u9636\u672A\u89E3\u9501\u9898\u70B9\u8FDB\u53EF\u770B\u89C6\u9891\u89E3\u9501</li>
       </ul>
-      <div class="note">\u6CA1\u6709\u63D2\u5C4F\u6253\u6270 \xB7 \u6CA1\u6709\u4F1A\u5458 \xB7 \u9898\u53F7\u968F\u4FBF\u8DF3\u3002\u60F3\u5B66\u62DB\u5F0F\u8BF7\u770B\u300C\u6280\u5DE7\u300D\u9875\u3002</div>
+      <div class="note">\u6CA1\u6709\u63D2\u5C4F\u6253\u6270 \xB7 \u6CA1\u6709\u4F1A\u5458 \xB7 \u524D ${FREE_BANK} \u9898\u968F\u4FBF\u8DF3\u3002\u60F3\u5B66\u62DB\u5F0F\u8BF7\u770B\u300C\u6280\u5DE7\u300D\u9875\u3002</div>
       <div class="rules-footer-actions">
         <button class="btn btn-ghost btn-block" id="btn-to-tips" type="button">${icon("hint")} \u4E09\u9636\u5DE7\u586B\u6280\u5DE7</button>
         <button class="btn btn-primary btn-block" id="btn-play" type="button">${icon("play")} \u5F00\u59CB\u7EC3\u4E60</button>
@@ -1308,7 +1521,7 @@
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   (function boot() {
-    console.log(`[${APP_NAME}] v0.6.1 UI=v1.3 build=${BUILD} questions=${QUESTION_COUNT}`);
+    console.log(`[${APP_NAME}] v0.6.2 UI=v1.3 build=${BUILD} questions=${QUESTION_COUNT} freeBank=${FREE_BANK}`);
     document.addEventListener("keydown", (e) => {
       if (state.screen !== "play" || !state.question) return;
       if (state.selected == null || state.givenMask[state.selected]) return;

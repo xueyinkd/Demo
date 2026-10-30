@@ -187,6 +187,47 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
   display: flex;
 }
 .picker-cell .picker-check .ui-icon { width: 12px; height: 12px; }
+
+.picker-section {
+  margin: 16px 4px 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.picker-section-meta {
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 6px;
+}
+.picker-cell.locked {
+  opacity: 0.55;
+  background: #EEF1F6;
+  border-style: dashed;
+  color: var(--muted);
+}
+.picker-cell.locked .picker-lock {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 6px;
+  background: var(--accent-soft, #FFF3D1);
+  color: #92400E;
+  font-weight: 700;
+}
+.picker-cell.advanced:not(.locked) {
+  border-color: var(--primary-soft, #D6E0FC);
+}
+.picker-unlock-btn {
+  margin: 16px 0 24px;
+}
+.btn-advanced {
+  border-color: var(--accent) !important;
+}
+
 .win-bank-done {
   text-align: center;
   color: var(--ok);
@@ -664,16 +705,47 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
   width: 100%;
   height: auto;
 }
+.share-card-wrap .share-overlay-title {
+  position: absolute;
+  left: 5%;
+  top: 17.5%;
+  right: 38%;
+  font-size: 13px;
+  font-weight: 600;
+  color: #5c6570;
+  letter-spacing: 0.02em;
+  text-align: left;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .share-card-wrap .share-overlay {
   position: absolute;
   left: 0; right: 0;
-  bottom: 14%;
+  bottom: 18%;
   text-align: center;
-  font-size: 18px;
-  font-weight: 700;
   color: var(--text);
   text-shadow: 0 1px 0 #fff;
   pointer-events: none;
+  padding: 0 12px;
+}
+.share-card-wrap .share-overlay-sum {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ok);
+  margin-bottom: 2px;
+}
+.share-card-wrap .share-overlay-time {
+  font-size: 18px;
+  font-weight: 700;
+}
+.share-box .share-url {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--primary);
+  word-break: break-all;
 }
 
 /* —— Rules —— */
