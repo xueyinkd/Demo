@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793328888990" : String(Date.now());
+  var BUILD = true ? "1793330969118" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -678,6 +678,10 @@
       state.board = cloneBoard(resume.board);
       state.history = resume.history.slice();
       state.elapsedMs = resume.elapsedMs;
+      for (let i = 0; i < 9; i++) {
+        if (state.givenMask[i]) state.board[i] = q.given[i];
+      }
+      state.history = state.history.filter((h) => !state.givenMask[h.index]);
     } else {
       state.board = cloneBoard(q.given);
       state.history = [];
@@ -842,9 +846,14 @@
     }
     const usedAt = state.board.findIndex((v, idx) => idx !== i && v === n);
     if (usedAt >= 0) {
+      if (state.givenMask[usedAt] === true) {
+        toast("\u8FD9\u4E2A\u6570\u5377\u9762\u4E0A\u5DF2\u6709");
+        return false;
+      }
       const oldPrev = state.board[usedAt];
       state.board[usedAt] = null;
       state.history.push({ index: usedAt, prev: oldPrev, next: null });
+      toast("\u5DF2\u79FB\u5230\u8FD9\u4E00\u683C");
     }
     state.board[i] = n;
     state.history.push({ index: i, prev, next: n });
