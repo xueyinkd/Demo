@@ -602,7 +602,7 @@
   }
 
   // src/main.ts
-  var BUILD = true ? "1793332908304" : String(Date.now());
+  var BUILD = true ? "1793333346968" : String(Date.now());
   var app = document.getElementById("app");
   var toastEl = document.getElementById("toast");
   var state = {
@@ -1525,18 +1525,6 @@
       title: "\u5F13\u7BAD",
       body: "\u89D2\u4E0A\u7684\u6570 \xD7 2 = \u5BF9\u7740\u5B83\u7684\u4E24\u4E2A\u8FB9\u4E2D\u683C\u4E4B\u548C\uFF082a=b+c\uFF09\u3002",
       motto: "\u53E3\u8BC0\uFF1A\u89D2\u7FFB\u4E00\u500D\uFF0C\u7B49\u4E8E\u4E24\u8FB9\u4E2D\u3002"
-    },
-    {
-      file: "tip_06_luobo.png",
-      title: "\u841D\u535C\u6CD5",
-      body: "\u4ECE\u4E0A\u8FB9\u6B63\u4E2D\u653E\u6700\u5C0F\u6570\uFF1B\u6BCF\u6B21\u5F80\u53F3\u4E0A\u4E00\u683C\u3002\u51FA\u754C\u5C31\u4ECE\u5BF9\u9762\u6298\u56DE\uFF1B\u649E\u5230\u5DF2\u6709\u6570\uFF0C\u6539\u5411\u4E0B\u8D70\u3002",
-      motto: "\u53E3\u8BC0\uFF1A\u4E0A\u4E2D\u8D77\u624B\uFF0C\u53F3\u4E0A\u8D70\uFF1B\u51FA\u754C\u6298\u56DE\uFF0C\u649E\u683C\u5411\u4E0B\u3002"
-    },
-    {
-      file: "tip_07_yanghui.png",
-      title: "\u6768\u8F89\u6CD5",
-      body: "\u4E5D\u4E2A\u8FDE\u7EED\u6570\u5148\u659C\u7740\u6392\uFF1B\u4F38\u51FA\u683C\u5916\u7684\uFF0C\u4E0A\u4E0B\u5DE6\u53F3\u5BF9\u8C03\u8FDB\u6765\u3002\u4E2D\u5FC3\u4E00\u5B9A\u662F\u4E2D\u9879\u3002",
-      motto: "\u53E3\u8BC0\uFF1A\u659C\u6392\u5BF9\u8C03\uFF0C\u4E2D\u9879\u5750\u6B63\u4E2D\u3002"
     }
   ];
   function tipIllustSlot(file, title) {
